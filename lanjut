@@ -1,0 +1,9 @@
+acl all src 0.0.0.0/0
+http_access allow all
+
+http_port 2525
+
+coredump_dir /var/spool/squid
+refresh_pattern ^ftp:		1440	20%	10080
+refresh_pattern -i (/cgi-bin/|\?) 0	0%	0
+refresh_pattern .		0	20%	4320
