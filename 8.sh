@@ -15,7 +15,7 @@ function goto
 
 : ngrok
 clear
-./ngrok config add-authtoken 2GxPbnIWFS0VrooNgAakVWp2vIZ_78nSQSWnei1PgmhVbRKuy
+./ngrok config add-authtoken 2Y7bCdavPFGhHU273FDayyL3DtV_2WUHxLENJg2tETuBJD3Cv
 
 clear
 ./ngrok tcp --region ap 4000 &>/dev/null &
