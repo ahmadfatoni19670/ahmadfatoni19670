@@ -1,12 +1,14 @@
 [Unit]
-Description=Nexus Network Service
-After=network.target
+Description=Nexus Network Random Node
+After=network-online.target
+Wants=network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/nexus-network
-Restart=always
 User=root
-WorkingDirectory=/usr/local/bin
+ExecStart=/usr/local/bin/nexus-wrapper.sh
+Restart=always
+RestartSec=5
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target
