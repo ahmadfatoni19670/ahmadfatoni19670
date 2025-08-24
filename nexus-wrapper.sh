@@ -106,11 +106,9 @@ NODE_PAIRS=(
 RANDOM_NODE_INDEX=$((RANDOM % ${#NODE_PAIRS[@]}))
 NODE1=${NODE_PAIRS[$RANDOM_NODE_INDEX]}
 
-LOG_DIR="/usr/local/bin"
-mkdir -p "$LOG_DIR"
+LOG_DIR="$HOME/chromium/nexus"
 
 /usr/local/bin/nexus-network start \
-  --max-threads 8 \
   --check-memory \
   --headless \
   --node-id "$NODE1" \
