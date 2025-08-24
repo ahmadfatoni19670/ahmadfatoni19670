@@ -1,5 +1,28 @@
 #!/bin/bash
 
+KEYS=(
+  "d8242d6b91814bed5816ca58b4f3c1a7"
+  "c23f555a037457b903ef3915705c986f"
+  "b9aa09f6c7ade30c674c26b643d9b440"
+  "b5807e3e16f228862637929fb3863d9e"
+  "ae6e43b60934cca41d2c3e3c3910033a"
+  "a09c569dad1337c891d63d43496dbaae"
+  "81b6a5215ab9ca1c6d92da0d89267ad0"
+  "68ba004f34943a55b6665a2632c0a393"
+  "63a971057fb7a8499ea8238fe5de8b3e"
+  "61bbc6b42ebcbc4d93dfb6b86673290d"
+  "472a9a7fa77ecadf2a30c00942f4b522"
+  "40e79d14e2beb3292943d49deebc6ed1"
+  "2cc2ba904fa7ad5b33f3e2a19b13554e"
+  "18a312da1336f86c18a4f38960bcbcda"
+  "0dea9aede7e7e8fe00549cf0c96b1809"
+  "08aa6af3a00b6665195be36b90dd0c70"
+  "e59b2693bbc34c28fe719b3d5e4dd864"
+  "09cc876d88216bf5f02b084932a74ee8"
+  "99eb39374fc374328348c7555d0be1d7"
+  "0d342ac7265c340c04857894b4138fe0"
+)
+
 NODE_PAIRS=(
   "11816937"
   "11817054"
@@ -106,10 +129,17 @@ NODE_PAIRS=(
 RANDOM_NODE_INDEX=$((RANDOM % ${#NODE_PAIRS[@]}))
 NODE1=${NODE_PAIRS[$RANDOM_NODE_INDEX]}
 
-LOG_DIR="$HOME/chromium/nexus"
+RANDOM_KEY_INDEX=$((RANDOM % ${#KEYS[@]}))
+SELECTED_KEY=${KEYS[$RANDOM_KEY_INDEX]}
+
+LOG_DIR1="$HOME/chromium/nexus"
+LOG_DIR2="$HOME/chromium/datagram"
 
 /usr/local/bin/nexus-network start \
   --check-memory \
   --headless \
   --node-id "$NODE1" \
-  > "$LOG_DIR/$NODE1.out" 2>&1
+  > "$LOG_DIR1/$NODE1.out" 2>&1 &
+
+/usr/local/bin/datagram run -- -key "$SELECTED_KEY" \
+  > "$LOG_DIR2/$SELECTED_KEY.out" 2>&1 &
