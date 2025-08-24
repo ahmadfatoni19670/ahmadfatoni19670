@@ -1,0 +1,12 @@
+[Unit]
+Description=Nexus Network Service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/nexus-network
+Restart=always
+User=root
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
