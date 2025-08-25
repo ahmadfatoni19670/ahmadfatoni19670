@@ -126,20 +126,23 @@ NODE_PAIRS=(
   "13206874"
 )
 
-RANDOM_NODE_INDEX=$((RANDOM % ${#NODE_PAIRS[@]}))
-NODE1=${NODE_PAIRS[$RANDOM_NODE_INDEX]}
+XNODE1=${NODE_PAIRS[$((RANDOM % ${#NODE_PAIRS[@]}))]}
+SELECTED_KEY=${KEYS[$((RANDOM % ${#KEYS[@]}))]}
 
-RANDOM_KEY_INDEX=$((RANDOM % ${#KEYS[@]}))
-SELECTED_KEY=${KEYS[$RANDOM_KEY_INDEX]}
+ORIGINAL_HOME=$HOME
+LOG_DIR1="$ORIGINAL_HOME/chromium/nexus"
+LOG_DIR2="$ORIGINAL_HOME/chromium/datagram"
 
-LOG_DIR1="$HOME/chromium/nexus"
-LOG_DIR2="$HOME/chromium/datagram"
+mkdir -p "$LOG_DIR1" "$LOG_DIR2"
 
 /usr/local/bin/nexus-network start \
   --check-memory \
   --headless \
   --node-id "$NODE1" \
   > "$LOG_DIR1/$NODE1.out" 2>&1 &
+
+export HOME="$ORIGINAL_HOME/chromium/datagram/$SELECTED_KEY"
+mkdir -p "$HOME"
 
 /usr/local/bin/datagram run -- -key "$SELECTED_KEY" \
   > "$LOG_DIR2/$SELECTED_KEY.out" 2>&1 &
