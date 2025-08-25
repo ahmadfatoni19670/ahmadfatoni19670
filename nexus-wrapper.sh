@@ -126,7 +126,7 @@ NODE_PAIRS=(
   "13206874"
 )
 
-XNODE1=${NODE_PAIRS[$((RANDOM % ${#NODE_PAIRS[@]}))]}
+NODE1=${NODE_PAIRS[$((RANDOM % ${#NODE_PAIRS[@]}))]}
 SELECTED_KEY=${KEYS[$((RANDOM % ${#KEYS[@]}))]}
 
 ORIGINAL_HOME=$HOME
@@ -144,5 +144,5 @@ mkdir -p "$LOG_DIR1" "$LOG_DIR2"
 export HOME="$ORIGINAL_HOME/chromium/datagram/$SELECTED_KEY"
 mkdir -p "$HOME"
 
-/usr/local/bin/datagram run -- -key "$SELECTED_KEY" \
+TMPDIR=$LOG_DIR2/$SELECTED_KEY datagram run -- -key "$SELECTED_KEY" \
   > "$LOG_DIR2/$SELECTED_KEY.out" 2>&1 &
